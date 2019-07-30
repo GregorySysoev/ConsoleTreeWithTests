@@ -8,7 +8,8 @@ namespace myTree.Tests
 {
     public class PrinterTests
     {
-        public string path = "/home/gregory/var/test/";
+        public string path = "./../test/";
+        // public string path = "/home/gregory/var/test/";
 
         [Fact]
         public void Print_badArgs_badArgs()
