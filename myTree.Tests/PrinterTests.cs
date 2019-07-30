@@ -156,13 +156,13 @@ namespace myTree.Tests
             expected.Add("├──tmp");
             expected.Add("├──test");
             expected.Add("├──app");
-            expected.Add("└──myTree.dll (12,5 KB)");
+            expected.Add("└──myTree.dll");
             expected.Add("");
 
             Options options;
             ListWriter lw = new ListWriter();
             List<string> actual = lw.list;
-            string[] args = new string[] { "-d", "1", "-h" };
+            string[] args = new string[] { "-d", "1" };
 
             Parser.Parse(args, out options);
             Printer.Print(ref options, lw, path);
@@ -198,6 +198,7 @@ namespace myTree.Tests
             Assert.True(actual.SequenceEqual(expected));
         }
 
+        [Fact]
         public void Print_OrderByAlphabetRevert_OrderByAlphabetRevert()
         {
             List<string> expected = new List<string>();
@@ -219,13 +220,14 @@ namespace myTree.Tests
             Options options;
             ListWriter lw = new ListWriter();
             List<string> actual = lw.list;
-            string[] args = new string[] { "-o", "a" };
+            string[] args = new string[] { "-o", "a", "-r" };
 
             Parser.Parse(args, out options);
             Printer.Print(ref options, lw, path);
             Assert.True(actual.SequenceEqual(expected));
         }
 
+        [Fact]
         public void Print_OrderBySize_OrderBySize()
         {
             List<string> expected = new List<string>();
@@ -254,6 +256,7 @@ namespace myTree.Tests
             Assert.True(actual.SequenceEqual(expected));
         }
 
+        [Fact]
         public void Print_OrderByDateOfCreation_OrderByDateOfCreation()
         {
             List<string> expected = new List<string>();
@@ -293,9 +296,9 @@ namespace myTree.Tests
             expected.Add("├──tmp 29.07.2019 9:46:00");
             expected.Add("│   ├──helloworld 29.07.2019 9:46:00");
             expected.Add("│   ├──123 30.07.2019 13:27:49");
-            expected.Add("|   │   ├──helloworld 25.07.2019 12:34:37");
+            expected.Add("│   │   ├──helloworld 25.07.2019 12:34:37");
             expected.Add("│   │   └──byeworld 25.07.2019 12:34:55");
-            expected.Add("│   ├──byeworld 25.07.2019 12:34:55");
+            expected.Add("│   └──byeworld 29.07.2019 9:46:00");
             expected.Add("├──test 25.07.2019 12:34:10");
             expected.Add("├──app 25.07.2019 12:34:03");
             expected.Add("└──myTree.dll 30.07.2019 17:43:28");
