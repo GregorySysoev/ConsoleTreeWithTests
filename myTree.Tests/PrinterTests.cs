@@ -8,10 +8,7 @@ namespace myTree.Tests
 {
     public class PrinterTests
     {
-        // public string path = "./../test/";
-        // public string path = "/test/";
-        public string path = "/home/gregory/var/test/";
-
+        public string path = "${workspaceFolder}/../../../../test";
         [Fact]
         public void Print_badArgs_badArgs()
         {
@@ -38,15 +35,19 @@ namespace myTree.Tests
             expected.Add("-d --depth [num]  nesting level");
             expected.Add("-s --size  show size of files");
             expected.Add("-h --human-readable  show size of files in human-readable view {Bytes, KB, ...}");
-            expected.Add("-o --order-by [flag] order of elements in tree");
+            expected.Add("-r reverse order of elements");
+            expected.Add("-o --order-by [flag] order of elements in tree. Default - by alphabet");
             expected.Add("");
             expected.Add("Available flags:");
-            expected.Add("a - order by alphabet");
             expected.Add("s - order by size");
             expected.Add("t - order by time of last change");
             expected.Add("c - order by time of creation");
             expected.Add("");
-
+            expected.Add("");
+            expected.Add("Attation");
+            expected.Add("If you are using 'dotnet myTree.dll' without args - you will see a whole tree");
+            expected.Add("If you are using 'dotnet myTree.dll' without '--order-by [s, t, c]' - default tree will be sorted by alphabet");
+            expected.Add("");
             expected.Add("--help show help");
             expected.Add("");
             expected.Add("Example of using:");
@@ -66,10 +67,8 @@ namespace myTree.Tests
         public void Print_noArgs_myTreeWithoutArgs()
         {
             List<string> expected = new List<string>();
-            expected.Add("├──app");
             expected.Add("├──myTree.dll");
             expected.Add("├──myTree.runtimeconfig.json");
-            expected.Add("├──test");
             expected.Add("├──tmp");
             expected.Add("│   ├──123");
             expected.Add("│   │   ├──byeworld");
@@ -95,19 +94,17 @@ namespace myTree.Tests
         public void Print_Size_Size()
         {
             List<string> expected = new List<string>();
+            expected.Add("├──myTree.dll (13312 Bytes)");
             expected.Add("├──myTree.runtimeconfig.json (146 Bytes)");
-            expected.Add("├──txt");
-            expected.Add("│   ├──helloworld (empty)");
-            expected.Add("│   └──byeworld (empty)");
             expected.Add("├──tmp");
-            expected.Add("│   ├──helloworld (37 Bytes)");
             expected.Add("│   ├──123");
-            expected.Add("│   │   ├──helloworld (empty)");
-            expected.Add("│   │   └──byeworld (empty)");
-            expected.Add("│   └──byeworld (35 Bytes)");
-            expected.Add("├──test");
-            expected.Add("├──app");
-            expected.Add("└──myTree.dll (12800 Bytes)");
+            expected.Add("│   │   ├──byeworld (empty)");
+            expected.Add("│   │   └──helloworld (empty)");
+            expected.Add("│   ├──byeworld (35 Bytes)");
+            expected.Add("│   └──helloworld (37 Bytes)");
+            expected.Add("└──txt");
+            expected.Add("   ├──byeworld (empty)");
+            expected.Add("   └──helloworld (empty)");
             expected.Add("");
 
             Options options;
@@ -124,19 +121,17 @@ namespace myTree.Tests
         public void Print_HumanReadable_HumanReadable()
         {
             List<string> expected = new List<string>();
+            expected.Add("├──myTree.dll (13 KB)");
             expected.Add("├──myTree.runtimeconfig.json (146 Bytes)");
-            expected.Add("├──txt");
-            expected.Add("│   ├──helloworld (empty)");
-            expected.Add("│   └──byeworld (empty)");
             expected.Add("├──tmp");
-            expected.Add("│   ├──helloworld (37 Bytes)");
             expected.Add("│   ├──123");
-            expected.Add("│   │   ├──helloworld (empty)");
-            expected.Add("│   │   └──byeworld (empty)");
-            expected.Add("│   └──byeworld (35 Bytes)");
-            expected.Add("├──test");
-            expected.Add("├──app");
-            expected.Add("└──myTree.dll (12,5 KB)");
+            expected.Add("│   │   ├──byeworld (empty)");
+            expected.Add("│   │   └──helloworld (empty)");
+            expected.Add("│   ├──byeworld (35 Bytes)");
+            expected.Add("│   └──helloworld (37 Bytes)");
+            expected.Add("└──txt");
+            expected.Add("   ├──byeworld (empty)");
+            expected.Add("   └──helloworld (empty)");
             expected.Add("");
 
             Options options;
@@ -153,10 +148,8 @@ namespace myTree.Tests
         public void Print_Depth1_Depth1()
         {
             List<string> expected = new List<string>();
-            expected.Add("├──app");
             expected.Add("├──myTree.dll");
             expected.Add("├──myTree.runtimeconfig.json");
-            expected.Add("├──test");
             expected.Add("├──tmp");
             expected.Add("└──txt");
             expected.Add("");
@@ -175,10 +168,8 @@ namespace myTree.Tests
         public void Print_OrderByAlphabet_OrderByAlphabet()
         {
             List<string> expected = new List<string>();
-            expected.Add("├──app");
             expected.Add("├──myTree.dll");
             expected.Add("├──myTree.runtimeconfig.json");
-            expected.Add("├──test");
             expected.Add("├──tmp");
             expected.Add("│   ├──123");
             expected.Add("│   │   ├──byeworld");
@@ -213,10 +204,8 @@ namespace myTree.Tests
             expected.Add("│   └──123");
             expected.Add("│      ├──helloworld");
             expected.Add("│      └──byeworld");
-            expected.Add("├──test");
             expected.Add("├──myTree.runtimeconfig.json");
-            expected.Add("├──myTree.dll");
-            expected.Add("└──app");
+            expected.Add("└──myTree.dll");
             expected.Add("");
 
             Options options;
@@ -242,10 +231,8 @@ namespace myTree.Tests
             expected.Add("│   │   └──byeworld (empty)");
             expected.Add("│   ├──byeworld (35 Bytes)");
             expected.Add("│   └──helloworld (37 Bytes)");
-            expected.Add("├──test");
-            expected.Add("├──app");
             expected.Add("├──myTree.runtimeconfig.json (146 Bytes)");
-            expected.Add("└──myTree.dll (12800 Bytes)");
+            expected.Add("└──myTree.dll (13312 Bytes)");
             expected.Add("");
 
             Options options;
@@ -259,22 +246,47 @@ namespace myTree.Tests
         }
 
         [Fact]
+        public void Print_OrderBySizeReverse_OrderBySizeReverse()
+        {
+            List<string> expected = new List<string>();
+            expected.Add("├──myTree.dll (13312 Bytes)");
+            expected.Add("├──myTree.runtimeconfig.json (146 Bytes)");
+            expected.Add("├──tmp");
+            expected.Add("│   ├──helloworld (37 Bytes)");
+            expected.Add("│   ├──byeworld (35 Bytes)");
+            expected.Add("│   └──123");
+            expected.Add("│      ├──byeworld (empty)");
+            expected.Add("│      └──helloworld (empty)");
+            expected.Add("└──txt");
+            expected.Add("   ├──byeworld (empty)");
+            expected.Add("   └──helloworld (empty)");
+            expected.Add("");
+
+            Options options;
+            ListWriter lw = new ListWriter();
+            List<string> actual = lw.list;
+            string[] args = new string[] { "-o", "s", "-s", "-r" };
+
+            Parser.Parse(args, out options);
+            Printer.Print(ref options, lw, path);
+            Assert.True(actual.SequenceEqual(expected));
+        }
+
+        [Fact]
         public void Print_OrderByDateOfCreation_OrderByDateOfCreation()
         {
             List<string> expected = new List<string>();
-            expected.Add("├──app 25.07.2019 12:34:03");
-            expected.Add("├──test 25.07.2019 12:34:10");
             expected.Add("├──tmp 29.07.2019 9:46:00");
-            expected.Add("│   ├──helloworld 29.07.2019 9:46:00");
-            expected.Add("│   ├──byeworld 29.07.2019 9:46:00");
-            expected.Add("│   └──123 30.07.2019 13:27:49");
-            expected.Add("│      ├──helloworld 25.07.2019 12:34:37");
-            expected.Add("│      └──byeworld 25.07.2019 12:34:55");
+            expected.Add("│   ├──123 30.07.2019 13:27:49");
+            expected.Add("│   │   ├──helloworld 25.07.2019 12:34:37");
+            expected.Add("│   │   └──byeworld 25.07.2019 12:34:55");
+            expected.Add("│   ├──helloworld 31.07.2019 9:46:53");
+            expected.Add("│   └──byeworld 31.07.2019 9:46:53");
             expected.Add("├──txt 29.07.2019 9:46:12");
             expected.Add("│   ├──byeworld 25.07.2019 12:34:55");
             expected.Add("│   └──helloworld 30.07.2019 13:29:27");
-            expected.Add("├──myTree.dll 30.07.2019 17:43:28");
-            expected.Add("└──myTree.runtimeconfig.json 30.07.2019 17:43:31");
+            expected.Add("├──myTree.dll 31.07.2019 12:52:53");
+            expected.Add("└──myTree.runtimeconfig.json 31.07.2019 12:52:59");
             expected.Add("");
 
             Options options;
@@ -291,19 +303,17 @@ namespace myTree.Tests
         public void Print_OrderByDateOfTransform_OrderByDateOfTransform()
         {
             List<string> expected = new List<string>();
-            expected.Add("├──myTree.runtimeconfig.json 30.07.2019 17:43:31");
+            expected.Add("├──myTree.runtimeconfig.json 31.07.2019 12:52:59");
             expected.Add("├──txt 29.07.2019 9:46:12");
             expected.Add("│   ├──helloworld 30.07.2019 13:29:27");
             expected.Add("│   └──byeworld 25.07.2019 12:34:55");
             expected.Add("├──tmp 29.07.2019 9:46:00");
-            expected.Add("│   ├──helloworld 29.07.2019 9:46:00");
+            expected.Add("│   ├──helloworld 31.07.2019 9:46:53");
             expected.Add("│   ├──123 30.07.2019 13:27:49");
             expected.Add("│   │   ├──helloworld 25.07.2019 12:34:37");
             expected.Add("│   │   └──byeworld 25.07.2019 12:34:55");
-            expected.Add("│   └──byeworld 29.07.2019 9:46:00");
-            expected.Add("├──test 25.07.2019 12:34:10");
-            expected.Add("├──app 25.07.2019 12:34:03");
-            expected.Add("└──myTree.dll 30.07.2019 17:43:28");
+            expected.Add("│   └──byeworld 31.07.2019 9:46:53");
+            expected.Add("└──myTree.dll 31.07.2019 12:52:53");
             expected.Add("");
 
             Options options;

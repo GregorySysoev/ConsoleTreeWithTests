@@ -96,15 +96,19 @@ namespace myTree
             _writer.WriteLine("-d --depth [num]  nesting level");
             _writer.WriteLine("-s --size  show size of files");
             _writer.WriteLine("-h --human-readable  show size of files in human-readable view {Bytes, KB, ...}");
-            _writer.WriteLine("-o --order-by [flag] order of elements in tree");
+            _writer.WriteLine("-r reverse order of elements");
+            _writer.WriteLine("-o --order-by [flag] order of elements in tree. Default - by alphabet");
             _writer.WriteLine();
             _writer.WriteLine("Available flags:");
-            _writer.WriteLine("a - order by alphabet");
             _writer.WriteLine("s - order by size");
             _writer.WriteLine("t - order by time of last change");
             _writer.WriteLine("c - order by time of creation");
             _writer.WriteLine();
-
+            _writer.WriteLine();
+            _writer.WriteLine("Attation");
+            _writer.WriteLine("If you are using 'dotnet myTree.dll' without args - you will see a whole tree");
+            _writer.WriteLine("If you are using 'dotnet myTree.dll' without '--order-by [s, t, c]' - default tree will be sorted by alphabet");
+            _writer.WriteLine();
             _writer.WriteLine("--help show help");
             _writer.WriteLine();
             _writer.WriteLine("Example of using:");
