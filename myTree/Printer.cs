@@ -15,78 +15,82 @@ namespace myTree
             {
                 _writer.WriteLine("Bad args");
                 _writer.WriteLine("use --help");
+                return;
             }
-            else
+
+            if (options.NeedHelp)
             {
-                List<int> pipes = new List<int>();
-                if (options.NeedHelp) PrintHelp();
-                else PrintRecursively(options.Depth, 0, path, ref pipes, ref options);
+                PrintHelp();
+                return;
             }
+
+            List<int> pipes = new List<int>();
+            PrintRecursively(options.Depth, 0, path, ref pipes, ref options);
         }
 
         public static void PrintRecursively(int depth, int indent, string path, ref List<int> pipes, ref Options options)
         {
-            if (depth != 0)
+            if (depth == 0)
             {
-                DirectoryInfo dir = new DirectoryInfo(path);
-                FileSystemInfo[] info = dir.GetFileSystemInfos();
-                pipes.Add(indent);
-
-                SortArray(ref info, options);
-
-                for (int i = 0, localDepth = --depth; i < info.Length; i++)
-                {
-                    if (i == info.Length - 1)
-                    {
-                        pipes.Remove(indent);
-                        PrintIndent(indent, ref pipes);
-                        _writer.Write("└──");
-
-                    }
-                    else
-                    {
-                        PrintIndent(indent, ref pipes);
-                        _writer.Write("├──");
-                    }
-
-                    if (info[i] is DirectoryInfo)
-                    {
-                        DirectoryInfo dInfo = (DirectoryInfo)info[i];
-                        _writer.Write(dInfo.Name);
-                        if (options.sorting.OrderByDateOfCreation)
-                        {
-                            _writer.Write(" " + dInfo.CreationTime.ToString());
-                        }
-                        else if (options.sorting.OrderByDateOfTransorm)
-                        {
-                            _writer.Write(" " + dInfo.CreationTime.ToString());
-                        }
-                        _writer.WriteLine();
-                        PrintRecursively(localDepth, indent + 4, dInfo.FullName, ref pipes, ref options);
-                    }
-                    else
-                    {
-                        FileInfo fInfo = (FileInfo)info[i];
-                        _writer.Write(fInfo.Name);
-                        if (options.NeedHumanReadable | options.NeedSize)
-                        {
-                            _writer.Write(" " + ConvertBytesToHumanReadable(fInfo.Length, options.NeedHumanReadable));
-                        }
-
-                        if (options.sorting.OrderByDateOfCreation)
-                        {
-                            _writer.Write(" " + fInfo.CreationTime.ToString());
-                        }
-                        else if (options.sorting.OrderByDateOfTransorm)
-                        {
-                            _writer.Write(" " + fInfo.LastWriteTime.ToString());
-                        }
-
-                        _writer.WriteLine();
-                    }
-                }
-                pipes.Remove(indent);
+                return;
             }
+
+            DirectoryInfo dir = new DirectoryInfo(path);
+            FileSystemInfo[] info = dir.GetFileSystemInfos();
+            pipes.Add(indent);
+
+            SortArray(ref info, options);
+
+            for (int i = 0, localDepth = --depth; i < info.Length; i++)
+            {
+                if (i == info.Length - 1)
+                {
+                    pipes.Remove(indent);
+                    PrintIndent(indent, ref pipes);
+                    _writer.Write("└──");
+
+                }
+                else
+                {
+                    PrintIndent(indent, ref pipes);
+                    _writer.Write("├──");
+                }
+
+                if (info[i] is DirectoryInfo dInfo)
+                {
+                    _writer.Write(dInfo.Name);
+                    if (options.sorting.OrderByDateOfCreation)
+                    {
+                        _writer.Write(" " + dInfo.CreationTime.ToString());
+                    }
+                    else if (options.sorting.OrderByDateOfTransorm)
+                    {
+                        _writer.Write(" " + dInfo.CreationTime.ToString());
+                    }
+                    _writer.WriteLine();
+                    PrintRecursively(localDepth, indent + 4, dInfo.FullName, ref pipes, ref options);
+                }
+                else if (info[i] is FileInfo fInfo)
+                {
+                    _writer.Write(fInfo.Name);
+                    if (options.NeedHumanReadable | options.NeedSize)
+                    {
+                        _writer.Write(" " + PrintSize(fInfo.Length, options.NeedHumanReadable));
+                    }
+
+                    if (options.sorting.OrderByDateOfCreation)
+                    {
+                        _writer.Write(" " + fInfo.CreationTime.ToString());
+                    }
+                    else if (options.sorting.OrderByDateOfTransorm)
+                    {
+                        _writer.Write(" " + fInfo.LastWriteTime.ToString());
+                    }
+
+                    _writer.WriteLine();
+                }
+            }
+            pipes.Remove(indent);
         }
         public static void PrintHelp()
         {
@@ -132,7 +136,7 @@ namespace myTree
                 }
             }
         }
-        public static string ConvertBytesToHumanReadable(long num, bool humanRead)
+        public static string PrintSize(long num, bool humanRead)
         {
             if (num == 0)
             {
@@ -193,52 +197,6 @@ namespace myTree
             {
                 Array.Reverse(array);
             }
-        }
-    }
-
-    public class NameComparer : IComparer<FileSystemInfo>
-    {
-        public int Compare(FileSystemInfo f1, FileSystemInfo f2)
-        {
-            return f1.Name.CompareTo(f2.Name);
-        }
-    }
-    public class SizeComparer : IComparer<FileSystemInfo>
-    {
-        public int Compare(FileSystemInfo f1, FileSystemInfo f2)
-        {
-            if ((f1 is DirectoryInfo) && (f2 is DirectoryInfo))
-            {
-                return 0;
-            }
-            else if (f1 is DirectoryInfo)
-            {
-                return -1;
-            }
-            else if (f2 is DirectoryInfo)
-            {
-                return 1;
-            }
-            else
-            {
-                FileInfo first = (FileInfo)f1;
-                FileInfo second = (FileInfo)f2;
-                return first.Length.CompareTo(second.Length);
-            }
-        }
-    }
-    public class ChangeTimeComparer : IComparer<FileSystemInfo>
-    {
-        public int Compare(FileSystemInfo f1, FileSystemInfo f2)
-        {
-            return f1.LastWriteTime.CompareTo(f1.LastWriteTime);
-        }
-    }
-    public class CreateTimeComparer : IComparer<FileSystemInfo>
-    {
-        public int Compare(FileSystemInfo f1, FileSystemInfo f2)
-        {
-            return f1.CreationTime.CompareTo(f2.CreationTime);
         }
     }
 }
