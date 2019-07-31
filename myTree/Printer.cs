@@ -164,12 +164,7 @@ namespace myTree
         }
         public static void SortArray(ref FileSystemInfo[] array, Options options)
         {
-            if (options.sorting.OrderByAlphabet)
-            {
-                NameComparer nameComparer = new NameComparer();
-                Array.Sort(array, nameComparer);
-            }
-            else if (options.sorting.OrderBySize)
+            if (options.sorting.OrderBySize)
             {
                 SizeComparer sizeComparer = new SizeComparer();
                 Array.Sort(array, sizeComparer);
@@ -183,6 +178,11 @@ namespace myTree
             {
                 CreateTimeComparer createTimeComparer = new CreateTimeComparer();
                 Array.Sort(array, createTimeComparer);
+            }
+            else
+            {
+                NameComparer nameComparer = new NameComparer();
+                Array.Sort(array, nameComparer);
             }
 
             if (options.sorting.Reverse)

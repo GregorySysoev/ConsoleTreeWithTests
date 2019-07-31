@@ -9,8 +9,8 @@ namespace myTree.Tests
     public class PrinterTests
     {
         // public string path = "./../test/";
-        public string path = "/test/";
-        // public string path = "/home/gregory/var/test/";
+        // public string path = "/test/";
+        public string path = "/home/gregory/var/test/";
 
         [Fact]
         public void Print_badArgs_badArgs()
@@ -66,19 +66,19 @@ namespace myTree.Tests
         public void Print_noArgs_myTreeWithoutArgs()
         {
             List<string> expected = new List<string>();
-            expected.Add("├──myTree.runtimeconfig.json");
-            expected.Add("├──txt");
-            expected.Add("│   ├──helloworld");
-            expected.Add("│   └──byeworld");
-            expected.Add("├──tmp");
-            expected.Add("│   ├──helloworld");
-            expected.Add("│   ├──123");
-            expected.Add("│   │   ├──helloworld");
-            expected.Add("│   │   └──byeworld");
-            expected.Add("│   └──byeworld");
-            expected.Add("├──test");
             expected.Add("├──app");
-            expected.Add("└──myTree.dll");
+            expected.Add("├──myTree.dll");
+            expected.Add("├──myTree.runtimeconfig.json");
+            expected.Add("├──test");
+            expected.Add("├──tmp");
+            expected.Add("│   ├──123");
+            expected.Add("│   │   ├──byeworld");
+            expected.Add("│   │   └──helloworld");
+            expected.Add("│   ├──byeworld");
+            expected.Add("│   └──helloworld");
+            expected.Add("└──txt");
+            expected.Add("   ├──byeworld");
+            expected.Add("   └──helloworld");
             expected.Add("");
 
             Options options;
@@ -153,12 +153,12 @@ namespace myTree.Tests
         public void Print_Depth1_Depth1()
         {
             List<string> expected = new List<string>();
-            expected.Add("├──myTree.runtimeconfig.json");
-            expected.Add("├──txt");
-            expected.Add("├──tmp");
-            expected.Add("├──test");
             expected.Add("├──app");
-            expected.Add("└──myTree.dll");
+            expected.Add("├──myTree.dll");
+            expected.Add("├──myTree.runtimeconfig.json");
+            expected.Add("├──test");
+            expected.Add("├──tmp");
+            expected.Add("└──txt");
             expected.Add("");
 
             Options options;
