@@ -1,0 +1,24 @@
+
+List of available commands:
+
+-d --depth [num]  nesting level
+-s --size  show size of files
+-h --human-readable  show size of files in human-readable view {Bytes, KB, ...}
+-r reverse order of elements
+-o --order-by [flag] order of elements in tree. Default - by alphabet
+
+Available flags:
+s - order by size
+t - order by time of last change
+c - order by time of creation
+
+
+Attation
+If you are using 'dotnet myTree.dll' without args - you will see a whole tree
+If you are using 'dotnet myTree.dll' without '--order-by [s, t, c]' - default tree will be sorted by alphabet
+
+--help show help
+
+Example of using:
+dotnet myTree.dll -d 5 -h -o a
+

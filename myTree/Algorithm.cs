@@ -49,14 +49,16 @@ namespace myTree
     {
         Options options;
         private IWriter _writer;
-        public Algorithm(string[] args, IWriter writer)
+        private string _path;
+        public Algorithm(string[] args, IWriter writer, string path)
         {
             _writer = writer;
             Parser.Parse(args, out options);
+            _path = path;
         }
         public void Execute()
         {
-            Printer.Print(ref options, _writer, System.Environment.CurrentDirectory);
+            Printer.Print(ref options, _writer, _path);
         }
     }
 }

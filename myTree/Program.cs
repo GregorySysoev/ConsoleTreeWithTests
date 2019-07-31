@@ -10,7 +10,7 @@ namespace myTree
         static void Main(string[] args)
         {
             IWriter writer = new ConsoleWriter();
-            Algorithm algorithm = new Algorithm(args, writer);
+            Algorithm algorithm = new Algorithm(args, writer, System.Environment.CurrentDirectory);
             algorithm.Execute();
         }
     }

@@ -1,0 +1,11 @@
+├──myTree.dll (13312 Bytes)
+├──myTree.runtimeconfig.json (146 Bytes)
+├──tmp
+│   ├──helloworld.txt (11 Bytes)
+│   ├──byeworld.txt (10 Bytes)
+│   └──123
+│      ├──helloworld.txt (17 Bytes)
+│      └──byeworld.txt (7 Bytes)
+└──txt
+   ├──byeworld.txt (10 Bytes)
+   └──helloworld.txt (3 Bytes)

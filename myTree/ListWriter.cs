@@ -7,36 +7,24 @@ namespace myTree
 {
     public class ListWriter : IWriter
     {
-        public List<string> list;
-        public string prefix;
+        public string list;
         public void Write(string text)
         {
-            if (list.Count == 0)
-            {
-                list.Add(text);
-            }
-            else
-            {
-                list[list.Count - 1] += text;
-            }
-            prefix = list[list.Count - 1];
+            list += text;
         }
         public void WriteLine()
         {
-            list.Add("");
-            prefix = "";
+            list += "\n";
         }
 
         public void WriteLine(string text)
         {
-            list.Add(prefix + text);
-            prefix = "";
+            list += text += "\n";
         }
 
         public ListWriter()
         {
-            list = new List<string>();
-            prefix = "";
+            list = "";
         }
     }
 }

@@ -1,0 +1,11 @@
+├──txt
+│   ├──helloworld.txt
+│   └──byeworld.txt
+├──tmp
+│   ├──helloworld.txt
+│   ├──byeworld.txt
+│   └──123
+│      ├──helloworld.txt
+│      └──byeworld.txt
+├──myTree.runtimeconfig.json
+└──myTree.dll

@@ -1,0 +1,4 @@
+├──myTree.dll
+├──myTree.runtimeconfig.json
+├──tmp
+└──txt
