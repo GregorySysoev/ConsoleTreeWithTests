@@ -87,7 +87,7 @@ namespace myTree.Tests
         [Fact]
         public void Print_OrderByAlphabet_OrderByAlphabet()
         {
-            string[] args = new string[] { "-o", "a" };
+            string[] args = new string[] { };
             var ls = new StringWriter();
             var alg = new Algorithm(args, ls, path);
 
@@ -99,7 +99,7 @@ namespace myTree.Tests
         [Fact]
         public void Print_OrderByAlphabetRevert_OrderByAlphabetRevert()
         {
-            string[] args = new string[] { "-o", "a", "-r" };
+            string[] args = new string[] { "-r" };
             var ls = new StringWriter();
             var alg = new Algorithm(args, ls, path);
 

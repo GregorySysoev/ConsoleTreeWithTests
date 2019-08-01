@@ -12,7 +12,8 @@ namespace myTree
         public Algorithm(string[] args, IWriter writer, string path)
         {
             _writer = writer;
-            Parser.Parse(args, out options);
+            Parser parser = new Parser();
+            parser.Parse(args, out options);
             _path = path;
         }
         public void Execute()

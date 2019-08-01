@@ -13,7 +13,8 @@ namespace myTree.Tests
         {
             Options options;
 
-            Parser.Parse(args, out options);
+            Parser parser = new Parser();
+            parser.Parse(args, out options);
 
             Assert.True(options.WasError);
         }
@@ -29,7 +30,8 @@ namespace myTree.Tests
         {
             Options options;
 
-            Parser.Parse(args, out options);
+            Parser parser = new Parser();
+            parser.Parse(args, out options);
 
             Assert.Equal(5, options.Depth);
             Assert.False(options.WasError);
@@ -41,7 +43,8 @@ namespace myTree.Tests
             Options options;
             string[] args = new string[] { };
 
-            Parser.Parse(args, out options);
+            Parser parser = new Parser();
+            parser.Parse(args, out options);
 
             Assert.False(options.WasError);
         }
@@ -54,7 +57,8 @@ namespace myTree.Tests
         {
             Options options;
 
-            Parser.Parse(args, out options);
+            Parser parser = new Parser();
+            parser.Parse(args, out options);
 
             Assert.True(options.NeedHelp);
             Assert.False(options.WasError);
@@ -69,7 +73,8 @@ namespace myTree.Tests
         {
             Options options;
 
-            Parser.Parse(args, out options);
+            Parser parser = new Parser();
+            parser.Parse(args, out options);
 
             Assert.True(options.NeedSize);
             Assert.False(options.WasError);
@@ -84,7 +89,8 @@ namespace myTree.Tests
         {
             Options options;
 
-            Parser.Parse(args, out options);
+            Parser parser = new Parser();
+            parser.Parse(args, out options);
 
             Assert.True(options.NeedHumanReadable);
             Assert.False(options.WasError);
@@ -99,7 +105,8 @@ namespace myTree.Tests
         {
             Options options;
 
-            Parser.Parse(args, out options);
+            Parser parser = new Parser();
+            parser.Parse(args, out options);
 
             Assert.True(options.sorting.Reverse);
             Assert.False(options.WasError);
@@ -116,25 +123,20 @@ namespace myTree.Tests
         {
             Options options;
 
-            Parser.Parse(args, out options);
+            Parser parser = new Parser();
+            parser.Parse(args, out options);
 
             Assert.True(options.WasError);
         }
 
-        [Theory]
-        [InlineData("-o", "a")]
-        [InlineData("--order-by", "a")]
-        [InlineData("-s", "-o", "a")]
-        [InlineData("-o", "a", "-s")]
-        [InlineData("-s", "-o", "a", "-d", "1")]
-        [InlineData("-s", "-o", "a", "-d", "1", "-o", "s")]
-        public void Parse_orderByAlphabet_OrderByAlphabet(params string[] args)
+        [Fact]
+        public void Parse_orderByAlphabet_OrderByAlphabet()
         {
             Options options;
+            string[] args = new string[] { };
+            Parser parser = new Parser();
+            parser.Parse(args, out options);
 
-            Parser.Parse(args, out options);
-
-            Assert.True(options.sorting.OrderByAlphabet);
             Assert.False(options.WasError);
         }
 
@@ -148,7 +150,8 @@ namespace myTree.Tests
         {
             Options options;
 
-            Parser.Parse(args, out options);
+            Parser parser = new Parser();
+            parser.Parse(args, out options);
 
             Assert.True(options.sorting.OrderBySize);
             Assert.False(options.WasError);
@@ -159,12 +162,13 @@ namespace myTree.Tests
         [InlineData("-s", "-o", "t")]
         [InlineData("-o", "t", "-s")]
         [InlineData("-s", "-o", "t", "-d", "1")]
-        [InlineData("-s", "--order-by", "t", "-d", "1", "-o", "a")]
+        [InlineData("-s", "--order-by", "t", "-d", "1")]
         public void Parse_OrderByDateOfTransorm_OrderByDateOfTransorm(params string[] args)
         {
             Options options;
 
-            Parser.Parse(args, out options);
+            Parser parser = new Parser();
+            parser.Parse(args, out options);
 
             Assert.True(options.sorting.OrderByDateOfTransorm);
             Assert.False(options.WasError);
@@ -175,12 +179,13 @@ namespace myTree.Tests
         [InlineData("-s", "-o", "c")]
         [InlineData("-o", "c", "-s")]
         [InlineData("-s", "-o", "c", "-d", "1")]
-        [InlineData("-s", "--order-by", "c", "-d", "1", "-o", "a")]
+        [InlineData("-s", "--order-by", "c", "-d", "1")]
         public void Parse_OrderByDateOfCreation_OrderByDateOfCreation(params string[] args)
         {
             Options options;
 
-            Parser.Parse(args, out options);
+            Parser parser = new Parser();
+            parser.Parse(args, out options);
 
             Assert.True(options.sorting.OrderByDateOfCreation);
             Assert.False(options.WasError);
