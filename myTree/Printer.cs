@@ -35,8 +35,8 @@ namespace myTree
                 return;
             }
 
-            DirectoryInfo dir = new DirectoryInfo(path);
-            FileSystemInfo[] info = dir.GetFileSystemInfos();
+            var dir = new DirectoryInfo(path);
+            var info = dir.GetFileSystemInfos();
             pipes.Add(indent);
 
             SortArray(ref info, options);
@@ -65,7 +65,7 @@ namespace myTree
                     }
                     else if (options.sorting.OrderByDateOfTransorm)
                     {
-                        _writer.Write(" " + dInfo.CreationTime.ToString());
+                        _writer.Write(" " + dInfo.LastWriteTime.ToString());
                     }
                     _writer.WriteLine();
                     PrintRecursively(localDepth, indent + 4, dInfo.FullName, ref pipes, ref options);
@@ -149,25 +149,29 @@ namespace myTree
             }
             else
             {
-                string[] suffixes =
+                return GetHumanReadableSizeView(num);
+            }
+        }
+        public static string GetHumanReadableSizeView(long num)
+        {
+            string[] suffixes =
     { "Bytes", "KB", "MB", "GB", "TB", "PB" };
 
-                int counter = 0;
-                decimal number = (decimal)num;
-                while ((counter < 5) && (Math.Round(number / 1024) >= 1))
-                {
-                    number /= 1024;
-                    counter++;
-                }
+            int counter = 0;
+            decimal number = (decimal)num;
+            while ((counter < 5) && (Math.Round(number / 1024) >= 1))
+            {
+                number /= 1024;
+                counter++;
+            }
 
-                if (number - decimal.Truncate(number) == 0)
-                {
-                    return string.Format("({0:} {1})", number, suffixes[counter]);
-                }
-                else
-                {
-                    return string.Format("({0:n1} {1})", number, suffixes[counter]);
-                }
+            if (number - decimal.Truncate(number) == 0)
+            {
+                return string.Format("({0:} {1})", number, suffixes[counter]);
+            }
+            else
+            {
+                return string.Format("({0:n1} {1})", number, suffixes[counter]);
             }
         }
         public static void SortArray(ref FileSystemInfo[] array, Options options)

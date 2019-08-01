@@ -2,29 +2,31 @@ using myTree;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
 namespace myTree
 {
-    public class ListWriter : IWriter
+    public class StringWriter : IWriter
     {
-        public string list;
+        public StringBuilder str;
         public void Write(string text)
         {
-            list += text;
+            str.Append(text);
         }
         public void WriteLine()
         {
-            list += "\n";
+            str.Append("\n");
         }
 
         public void WriteLine(string text)
         {
-            list += text += "\n";
+            str.Append(text);
+            str.Append("\n");
         }
 
-        public ListWriter()
+        public StringWriter()
         {
-            list = "";
+            str = new StringBuilder();
         }
     }
 }

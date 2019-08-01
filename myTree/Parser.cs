@@ -2,8 +2,15 @@ using System.Collections.Generic;
 
 namespace myTree
 {
-    public static class Parser
+    public class Parser
     {
+        public static void ParseArgs(string[] args)
+        {
+            for (int i = 0; i < args.Length; i++)
+            {
+
+            }
+        }
         public static void Parse(string[] args, out Options options)
         {
             bool wasError = false;
@@ -22,6 +29,7 @@ namespace myTree
             bool needFlag = false;
             for (int i = 0; (i < args.Length) & (!wasError); i++)
             {
+
                 if (needInt)
                 {
                     bool isNumeric = int.TryParse(args[i], out int n);
