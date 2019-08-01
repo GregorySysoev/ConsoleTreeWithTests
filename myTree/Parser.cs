@@ -110,17 +110,6 @@ namespace myTree
         }
         public void Parse(string[] args, out Options options)
         {
-            wasError = false;
-            depth = -1;
-            needSize = false;
-            needHumanReadable = false;
-            needHelp = false;
-
-            orderBySize = false;
-            orderByDateOfTransorm = false;
-            orderByDateOfCreation = false;
-            orderReverse = false;
-
             ParseArgs(args);
 
             if ((needInt) | (needFlag))
