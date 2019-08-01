@@ -5,19 +5,19 @@ namespace myTree
     public class Parser
     {
 
-        public bool wasError;
+        public bool wasError = false;
         public int depth = -1;
-        public bool needSize;
-        public bool needHumanReadable;
-        public bool needHelp;
+        public bool needSize = false;
+        public bool needHumanReadable = false;
+        public bool needHelp = false;
 
-        public bool orderBySize;
-        public bool orderByDateOfTransorm;
-        public bool orderByDateOfCreation;
-        public bool orderReverse;
+        public bool orderBySize = false;
+        public bool orderByDateOfTransorm = false;
+        public bool orderByDateOfCreation = false;
+        public bool orderReverse = false;
 
-        public bool needInt;
-        public bool needFlag;
+        public bool needInt = false;
+        public bool needFlag = false;
 
         public List<string> availableCommands = new List<string>() {
             "-d" , "--depth",
@@ -128,19 +128,6 @@ namespace myTree
                 orderByDateOfCreation,
                 orderReverse
             );
-        }
-        public Parser()
-        {
-            wasError = false;
-            depth = -1;
-            needSize = false;
-            needHumanReadable = false;
-            needHelp = false;
-
-            orderBySize = false;
-            orderByDateOfTransorm = false;
-            orderByDateOfCreation = false;
-            orderReverse = false;
         }
     }
 }
