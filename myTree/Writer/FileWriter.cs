@@ -1,6 +1,7 @@
 using myTree;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace myTree
 {
@@ -12,14 +13,12 @@ namespace myTree
             throw new System.NotImplementedException();
         }
 
-        public void WriteLine()
+        public void Write(string prefix, FileSystemInfo info, string suffix)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void WriteLine(string text)
-        {
-            throw new System.NotImplementedException();
+            if (info is FileInfo fInfo)
+            {
+                _listOfFiles.Add(fInfo.FullName);
+            }
         }
     }
 }

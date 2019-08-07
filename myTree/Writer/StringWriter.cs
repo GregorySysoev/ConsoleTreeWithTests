@@ -2,6 +2,7 @@ using myTree;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace myTree
@@ -12,16 +13,12 @@ namespace myTree
         public void Write(string text)
         {
             str.Append(text);
-        }
-        public void WriteLine()
-        {
             str.Append("\n");
         }
 
-        public void WriteLine(string text)
+        public void Write(string prefix, FileSystemInfo fInfo, string suffix)
         {
-            str.Append(text);
-            str.Append("\n");
+            str.Append(prefix + fInfo.Name + suffix + "\n");
         }
 
         public StringWriter()

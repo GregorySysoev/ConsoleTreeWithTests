@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 
 namespace myTree
 {
@@ -6,15 +7,12 @@ namespace myTree
     {
         public void Write(string text)
         {
-            Console.Write(text);
-        }
-        public void WriteLine()
-        {
-            Console.WriteLine();
-        }
-        public void WriteLine(string text)
-        {
             Console.WriteLine(text);
+        }
+
+        public void Write(string prefix, FileSystemInfo fInfo, string suffix)
+        {
+            Console.WriteLine(prefix + fInfo.Name + suffix);
         }
     }
 }

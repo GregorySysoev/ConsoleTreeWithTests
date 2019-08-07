@@ -13,8 +13,8 @@ namespace myTree
 
             if (options.WasError)
             {
-                _writer.WriteLine("Bad args");
-                _writer.WriteLine("use --help");
+                _writer.Write("Bad args");
+                _writer.Write("use --help");
                 return;
             }
 
@@ -43,98 +43,100 @@ namespace myTree
 
             for (int i = 0, localDepth = --depth; i < info.Length; i++)
             {
+                string prefix = "";
+                string suffix = "";
                 if (i == info.Length - 1)
                 {
                     pipes.Remove(indent);
-                    PrintIndent(indent, ref pipes);
-                    _writer.Write("└──");
+                    prefix = PrintIndent(indent, ref pipes);
+                    prefix += ("└──");
 
                 }
                 else
                 {
-                    PrintIndent(indent, ref pipes);
-                    _writer.Write("├──");
+                    prefix += PrintIndent(indent, ref pipes);
+                    prefix += ("├──");
                 }
 
                 if (info[i] is DirectoryInfo dInfo)
                 {
-                    _writer.Write(dInfo.Name);
                     if (options.sorting.OrderByDateOfCreation)
                     {
-                        _writer.Write(" " + dInfo.CreationTime.ToString());
+                        suffix = (" " + dInfo.CreationTime.ToString());
                     }
                     else if (options.sorting.OrderByDateOfTransorm)
                     {
-                        _writer.Write(" " + dInfo.LastWriteTime.ToString());
+                        suffix = (" " + dInfo.LastWriteTime.ToString());
                     }
-                    _writer.WriteLine();
+                    _writer.Write(prefix, dInfo, suffix);
                     PrintRecursively(localDepth, indent + 4, dInfo.FullName, ref pipes, ref options);
                 }
                 else if (info[i] is FileInfo fInfo)
                 {
-                    _writer.Write(fInfo.Name);
                     if (options.NeedHumanReadable | options.NeedSize)
                     {
-                        _writer.Write(" " + PrintSize(fInfo.Length, options.NeedHumanReadable));
+                        suffix = (" " + PrintSize(fInfo.Length, options.NeedHumanReadable));
                     }
 
                     if (options.sorting.OrderByDateOfCreation)
                     {
-                        _writer.Write(" " + fInfo.CreationTime.ToString());
+                        suffix = (" " + fInfo.CreationTime.ToString());
                     }
                     else if (options.sorting.OrderByDateOfTransorm)
                     {
-                        _writer.Write(" " + fInfo.LastWriteTime.ToString());
+                        suffix = (" " + fInfo.LastWriteTime.ToString());
                     }
 
-                    _writer.WriteLine();
+                    _writer.Write(prefix, fInfo, suffix);
                 }
             }
             pipes.Remove(indent);
         }
         public static void PrintHelp()
         {
-            _writer.WriteLine();
-            _writer.WriteLine("List of available commands:");
-            _writer.WriteLine();
-            _writer.WriteLine("-d --depth [num]  nesting level");
-            _writer.WriteLine("-s --size  show size of files");
-            _writer.WriteLine("-h --human-readable  show size of files in human-readable view {Bytes, KB, ...}");
-            _writer.WriteLine("-r reverse order of elements");
-            _writer.WriteLine("-o --order-by [flag] order of elements in tree. Default - by alphabet");
-            _writer.WriteLine();
-            _writer.WriteLine("Available flags:");
-            _writer.WriteLine("s - order by size");
-            _writer.WriteLine("t - order by time of last change");
-            _writer.WriteLine("c - order by time of creation");
-            _writer.WriteLine();
-            _writer.WriteLine();
-            _writer.WriteLine("Attation");
-            _writer.WriteLine("If you are using 'dotnet myTree.dll' without args - you will see a whole tree");
-            _writer.WriteLine("If you are using 'dotnet myTree.dll' without '--order-by [s, t, c]' - default tree will be sorted by alphabet");
-            _writer.WriteLine();
-            _writer.WriteLine("--help show help");
-            _writer.WriteLine();
-            _writer.WriteLine("Example of using:");
-            _writer.WriteLine("dotnet myTree.dll -d 5 -h -o a");
-            _writer.WriteLine();
+            _writer.Write("");
+            _writer.Write("List of available commands:");
+            _writer.Write("");
+            _writer.Write("-d --depth [num]  nesting level");
+            _writer.Write("-s --size  show size of files");
+            _writer.Write("-h --human-readable  show size of files in human-readable view {Bytes, KB, ...}");
+            _writer.Write("-r reverse order of elements");
+            _writer.Write("-o --order-by [flag] order of elements in tree. Default - by alphabet");
+            _writer.Write("");
+            _writer.Write("Available flags:");
+            _writer.Write("s - order by size");
+            _writer.Write("t - order by time of last change");
+            _writer.Write("c - order by time of creation");
+            _writer.Write("");
+            _writer.Write("");
+            _writer.Write("Attation");
+            _writer.Write("If you are using 'dotnet myTree.dll' without args - you will see a whole tree");
+            _writer.Write("If you are using 'dotnet myTree.dll' without '--order-by [s, t, c]' - default tree will be sorted by alphabet");
+            _writer.Write("");
+            _writer.Write("--help show help");
+            _writer.Write("");
+            _writer.Write("Example of using:");
+            _writer.Write("dotnet myTree.dll -d 5 -h -o a");
+            _writer.Write("");
         }
-        public static void PrintIndent(int indent, ref List<int> pipes)
+        public static string PrintIndent(int indent, ref List<int> pipes)
         {
+            string result = "";
             for (int i = 0; i < indent; i++)
             {
                 if (i % 4 == 0)
                 {
                     if (pipes.Contains(i))
                     {
-                        _writer.Write("│");
+                        result += ("│");
                     }
                 }
                 else
                 {
-                    _writer.Write(" ");
+                    result += (" ");
                 }
             }
+            return result;
         }
         public static string PrintSize(long num, bool humanRead)
         {
